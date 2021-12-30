@@ -48,7 +48,8 @@ def main():
                filename,
                '-i',
                '-offset', str(offset),
-               '-new-name', str(new_name)]
+               '-new-name', str(new_name),
+               '--'] # make sure clang-rename is OK even without compilation-database.
     # FIXME: make it possible to run the tool on unsaved file.
     p = subprocess.Popen(command,
                          stdout=subprocess.PIPE,
@@ -58,8 +59,8 @@ def main():
     if stderr:
         print(stderr)
 
-    # Reload all buffers in Vim.
-    vim.command("checktime")
+    # Reload all buffers in Vim, without asking for confirmation.
+    vim.command("bufdo edit")
 
 
 if __name__ == '__main__':
